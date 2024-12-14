@@ -1,8 +1,10 @@
 # Set all target’s visibility in this package to "public".
 package(default_visibility = ["//visibility:public"])
 
-load("//deps:hs.bzl", "aoc_day", "aoc_lib")
+load("//deps:hs.bzl", "aoc_day", "aoc_lib", "ide")
 
 aoc_lib()
+
+ide()
 
 aoc_day(1)

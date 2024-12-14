@@ -3,6 +3,7 @@ load(
     "haskell_toolchain_library",
     "haskell_library",
     "haskell_binary",
+    "haskell_repl",
 )
 
 STACK_DEPS = ["array", "base", "text", "containers",
@@ -29,3 +30,11 @@ def aoc_lib():
         deps = DEPS,
         linkstatic = True,
     )
+
+def ide():
+    haskell_repl(
+        name = "hie-bios",
+        collect_data = False,
+        deps = DEPS + [":Commons"],
+    )
+

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+bazel run //:hie-bios@bios 2>/dev/null 1>"$HIE_BIOS_OUTPUT"
+echo -Wwarn >>"$HIE_BIOS_OUTPUT"

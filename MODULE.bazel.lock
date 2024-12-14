@@ -528,9 +528,9 @@
     "@@rules_haskell~//extensions:haskell_toolchains.bzl%haskell_toolchains": {
       "general": {
         "bzlTransitiveDigest": "51c+0CNPcoLpoFVtYVc6NUgFlz6HgMKcC9tiRmcAJHI=",
-        "usagesDigest": "eP87kbmOpYQP+02pL3zZmDt8hUXMH8etCBwWw6KWFS0=",
+        "usagesDigest": "277BVx4nU8Jlc3lB7wc7vd+3y2TIqvp0IEA8S1BCo0I=",
         "recordedFileInputs": {
-          "@@rules_haskell~//haskell/private/ghc_bindist_generated.json": "21df54c55b86c7a4dca5a7dc8586073e422c4e73bd18dfd43bcb95bcc752a97b"
+          "@@rules_haskell~//haskell/private/ghc_bindist_generated.json": "3ea29655557e869d53dbde05e541c340b3ece1005320f6bfb16496d0ed3100bf"
         },
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -539,7 +539,7 @@
             "bzlFile": "@@rules_haskell~//haskell:ghc_bindist.bzl",
             "ruleClassName": "_ghc_bindist",
             "attributes": {
-              "version": "9.8.4",
+              "version": "9.6.6",
               "ghcopts": [
                 "-threaded",
                 "-rtsopts",
@@ -922,7 +922,7 @@
     "@@rules_haskell~//extensions:stack_snapshot.bzl%stack_snapshot": {
       "general": {
         "bzlTransitiveDigest": "btFMR4thOKRBaRNZJW1GAuyUG7q6gbTnAM0h7BE2gC0=",
-        "usagesDigest": "HElA3Hch6tEQhvVJzaEy7KP4C9GBSZx8Wbc/KFGf0fw=",
+        "usagesDigest": "aLSPweZVJA49BvAGSczpHWW62t3PMMdhwiW7EzMpuV4=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -947,7 +947,7 @@
               "stack": "@@rules_haskell~~rules_haskell_dependencies~rules_haskell_stack//:stack",
               "stack_update": "@@rules_haskell~~stack_snapshot~rules_haskell_stack_update//:stack_update",
               "vendored_packages": {},
-              "snapshot": "lts-23.0",
+              "snapshot": "lts-22.43",
               "stack_snapshot_json": "@@//deps:stackage_snapshot.json",
               "packages": [
                 "zlib",
@@ -979,7 +979,7 @@
                 "@@_main~non_module_deps~zlib.dev//:zlib": "zlib"
               },
               "vendored_packages": {},
-              "snapshot": "lts-23.0",
+              "snapshot": "lts-22.43",
               "stack_snapshot_json": "@@//deps:stackage_snapshot.json",
               "packages": [
                 "zlib",

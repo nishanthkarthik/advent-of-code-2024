@@ -18,7 +18,7 @@ haskell_toolchains = use_extension(
 EXTENSIONS = ["-XOverloadedStrings", "-XTupleSections"]
 GHCOPTS = ["-threaded", "-rtsopts", "-O2"] + EXTENSIONS
 
-haskell_toolchains.bindist(version = "9.8.4", target = "linux_amd64", ghcopts = GHCOPTS)
+haskell_toolchains.bindist(version = "9.6.6", target = "linux_amd64", ghcopts = GHCOPTS)
 
 non_module_deps = use_extension(
     "//deps:non_module_deps.bzl",
@@ -47,8 +47,7 @@ stack.package(
     extra_deps = ["@zlib.dev//:zlib"],
 )
 
-# LTS snapshot published for ghc-9.8.4 (default version used by rules_haskell)
-stack.snapshot(name = "lts-23.0")
+stack.snapshot(name = "lts-22.43")
 
 # This uses an unpinned version of stack_snapshot, meaning that stack is invoked on every build.
 # To switch to pinned stackage dependencies, run `bazel run @stackage-unpinned//:pin` and
