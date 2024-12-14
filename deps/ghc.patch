@@ -1,0 +1,15 @@
+diff --git haskell/private/ghc_bindist_generated.json haskell/private/ghc_bindist_generated.json
+index 158178e..0b74225 100644
+--- haskell/private/ghc_bindist_generated.json
++++ haskell/private/ghc_bindist_generated.json
+@@ -491,8 +491,8 @@
+     },
+     "9.8.4": {
+         "linux_amd64": [
+-            "https://downloads.haskell.org/~ghc/9.8.4/ghc-9.8.4-x86_64-deb9-linux.tar.xz",
+-            "1ff17998daa7d356801899b2862916c8df53ae57969189419d7709a877fc380c"
++            "https://downloads.haskell.org/~ghc/9.8.4/ghc-9.8.4-x86_64-deb12-linux.tar.xz",
++            "b50545b54934068a569225e3dde267a8b5aab66449330d63e02a8cf28972375e"
+         ],
+         "linux_arm64": [
+             "https://downloads.haskell.org/~ghc/9.8.4/ghc-9.8.4-aarch64-deb10-linux.tar.xz",

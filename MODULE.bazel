@@ -1,0 +1,68 @@
+module(name = "aoc-2024", version = "0.1")
+
+bazel_dep(name = "rules_haskell")
+bazel_dep(name = "rules_cc", version = "0.0.17")
+
+git_override(
+    module_name = "rules_haskell",
+    remote = "https://github.com/tweag/rules_haskell.git",
+    commit = "fad14171e67511b16f8a7dd16ed8f9267ed0bf3c",
+    patches = ["//deps:ghc.patch"],
+)
+
+haskell_toolchains = use_extension(
+    "@rules_haskell//extensions:haskell_toolchains.bzl",
+    "haskell_toolchains",
+)
+
+EXTENSIONS = ["-XOverloadedStrings", "-XTupleSections"]
+GHCOPTS = ["-threaded", "-rtsopts", "-O2"] + EXTENSIONS
+
+haskell_toolchains.bindist(version = "9.8.4", target = "linux_amd64", ghcopts = GHCOPTS)
+
+non_module_deps = use_extension(
+    "//deps:non_module_deps.bzl",
+    "non_module_deps",
+)
+
+use_repo(
+    non_module_deps,
+    "zlib.dev",
+)
+
+stack = use_extension(
+    "@rules_haskell//extensions:stack_snapshot.bzl",
+    "stack_snapshot",
+)
+
+use_repo(
+    stack,
+    "stackage",
+    "stackage-exe",
+    "stackage-unpinned",
+)
+
+stack.package(
+    name = "zlib",
+    extra_deps = ["@zlib.dev//:zlib"],
+)
+
+# LTS snapshot published for ghc-9.8.4 (default version used by rules_haskell)
+stack.snapshot(name = "lts-23.0")
+
+# This uses an unpinned version of stack_snapshot, meaning that stack is invoked on every build.
+# To switch to pinned stackage dependencies, run `bazel run @stackage-unpinned//:pin` and
+# uncomment the following line.
+stack.stack_snapshot_json(label = "//deps:stackage_snapshot.json")
+
+# Custom
+
+PACKAGES = ["array", "base", "text", "containers", "parallel", "extra", "directory", "unix", "random"]
+
+[stack.package(name = p) for p in PACKAGES]
+
+stack.package(
+    name = "attoparsec",
+    components = ["lib:attoparsec", "lib:attoparsec-internal"],
+    components_dependencies = {"lib:attoparsec": ["lib:attoparsec-internal"]},
+)

@@ -1,0 +1,9 @@
+common --enable_bzlmod=true
+
+# Should become the default in bazel 7
+build --incompatible_enable_cc_toolchain_resolution
+
+# Enable automatic OS-specific config (e.g. build:linux, build:macos, build:windows).
+common --enable_platform_specific_config
+
+try-import .bazelrc.local
