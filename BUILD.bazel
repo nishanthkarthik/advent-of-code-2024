@@ -11,7 +11,7 @@ load(
 
 STACK_DEPS = ["array", "base", "text", "containers",
         "parallel", "extra", "directory", "unix", "random",
-        "attoparsec"]
+        "attoparsec", "mtl"]
 
 DEPS = ["@stackage//:{}".format(i) for i in STACK_DEPS]
 
@@ -31,9 +31,10 @@ haskell_binary(
     name = "newday",
     srcs = [":Scaffolding.hs"],
     deps = DEPS,
+    data = ["//deps:DayTemplate.hs"]
 )
 
-DAYS = 2
+DAYS = 3
 
 [haskell_binary(
     name = "d{}".format(day + 1),

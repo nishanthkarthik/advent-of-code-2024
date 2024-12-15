@@ -56,7 +56,8 @@ stack.stack_snapshot_json(label = "//deps:stackage_snapshot.json")
 
 # Custom
 
-PACKAGES = ["array", "base", "text", "containers", "parallel", "extra", "directory", "unix", "random"]
+PACKAGES = ["array", "base", "text", "containers", "parallel", "extra", "directory", "unix", "random",
+            "mtl"]
 
 [stack.package(name = p) for p in PACKAGES]
 

@@ -922,7 +922,7 @@
     "@@rules_haskell~//extensions:stack_snapshot.bzl%stack_snapshot": {
       "general": {
         "bzlTransitiveDigest": "btFMR4thOKRBaRNZJW1GAuyUG7q6gbTnAM0h7BE2gC0=",
-        "usagesDigest": "aLSPweZVJA49BvAGSczpHWW62t3PMMdhwiW7EzMpuV4=",
+        "usagesDigest": "9CtVbM3cVMhEn3tqgcy3qu43xBN8vWDRObHAtLlCp3k=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -960,6 +960,7 @@
                 "directory",
                 "unix",
                 "random",
+                "mtl",
                 "attoparsec"
               ],
               "flags": {},
@@ -992,6 +993,7 @@
                 "directory",
                 "unix",
                 "random",
+                "mtl",
                 "attoparsec"
               ],
               "flags": {},

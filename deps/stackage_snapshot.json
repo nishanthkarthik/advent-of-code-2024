@@ -1,6 +1,6 @@
 {
-  "__GENERATED_FILE_DO_NOT_MODIFY_MANUALLY": 2142750379,
-  "all-cabal-hashes": "https://raw.githubusercontent.com/commercialhaskell/all-cabal-hashes/75dd095694d49f19bc848b9f8c51ad511ac34de4",
+  "__GENERATED_FILE_DO_NOT_MODIFY_MANUALLY": 536411303,
+  "all-cabal-hashes": "https://raw.githubusercontent.com/commercialhaskell/all-cabal-hashes/42aba4f3cc7dbc2ef6bc0343d365c8778c1207e9",
   "resolved": {
     "array": {"dependencies":[],"location":{"type":"core"},"name":"array","version":"0.5.6.0"},
     "attoparsec": {"dependencies":["array","base","bytestring","containers","deepseq","ghc-prim","scientific","text","transformers"],"location":{"type":"hackage","url":"https://hackage.haskell.org/package/attoparsec-0.14.4/attoparsec-0.14.4.tar.gz"},"name":"attoparsec","pinned":{"cabal-sha256":"35129d0ab1741f000f1a7d2fc839544919ee6fbb8f2d6e7f0a629c41f91035f3","sha256":"3f337fe58624565de12426f607c23e60c7b09c86b4e3adfc827ca188c9979e6c","url":["https://hackage.haskell.org/package/attoparsec-0.14.4/attoparsec-0.14.4.tar.gz","https://s3.amazonaws.com/hackage.fpcomplete.com/package/attoparsec-0.14.4.tar.gz"]},"version":"0.14.4"},
