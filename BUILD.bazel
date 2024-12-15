@@ -1,10 +1,46 @@
 # Set all target’s visibility in this package to "public".
 package(default_visibility = ["//visibility:public"])
 
-load("//deps:hs.bzl", "aoc_day", "aoc_lib", "ide")
+load(
+    "@rules_haskell//haskell:defs.bzl",
+    "haskell_toolchain_library",
+    "haskell_library",
+    "haskell_binary",
+    "haskell_repl",
+)
 
-aoc_lib()
+STACK_DEPS = ["array", "base", "text", "containers",
+        "parallel", "extra", "directory", "unix", "random",
+        "attoparsec"]
 
-ide()
+DEPS = ["@stackage//:{}".format(i) for i in STACK_DEPS]
 
-aoc_day(1)
+haskell_library(
+    name = "Commons",
+    srcs = ["//:Commons.hs"],
+    deps = DEPS,
+)
+
+haskell_repl(
+    name = "hie-bios",
+    collect_data = False,
+    deps = DEPS + [":Commons"],
+)
+
+haskell_binary(
+    name = "newday",
+    srcs = [":Scaffolding.hs"],
+    deps = DEPS,
+)
+
+DAYS = 2
+
+[haskell_binary(
+    name = "d{}".format(day + 1),
+    srcs = ["Day{}.hs".format(day + 1)],
+    deps = DEPS + [":Commons"],
+    data = [
+        "//:inputs/{}/test.txt".format(day + 1),
+        "//:inputs/{}/input.txt".format(day + 1),
+    ],
+) for day in range(DAYS)]
