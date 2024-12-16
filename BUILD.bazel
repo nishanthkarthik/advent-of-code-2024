@@ -15,10 +15,13 @@ STACK_DEPS = ["array", "base", "text", "containers",
 
 DEPS = ["@stackage//:{}".format(i) for i in STACK_DEPS]
 
+EXTENSIONS = ["-XOverloadedStrings", "-XTupleSections", "-XMultiWayIf"]
+
 haskell_library(
     name = "Commons",
     srcs = ["//:Commons.hs"],
     deps = DEPS,
+    ghcopts = EXTENSIONS,
 )
 
 haskell_repl(
@@ -31,7 +34,8 @@ haskell_binary(
     name = "newday",
     srcs = [":Scaffolding.hs"],
     deps = DEPS,
-    data = ["//deps:DayTemplate.hs"]
+    data = ["//deps:DayTemplate.hs"],
+    ghcopts = EXTENSIONS,
 )
 
 DAYS = 6
@@ -40,6 +44,7 @@ DAYS = 6
     name = "d{}".format(day + 1),
     srcs = ["Day{}.hs".format(day + 1)],
     deps = DEPS + [":Commons"],
+    ghcopts = EXTENSIONS,
     data = [
         "//:inputs/{}/test.txt".format(day + 1),
         "//:inputs/{}/input.txt".format(day + 1),

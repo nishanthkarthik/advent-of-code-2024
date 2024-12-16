@@ -1,5 +1,3 @@
-{-# LANGUAGE MultiWayIf #-}
-
 import qualified Data.Attoparsec.Text as At
 import qualified Data.Map.Strict as M
 import qualified Data.Set as S
@@ -7,6 +5,7 @@ import Control.Monad.State
 import Control.Monad
 import Control.Applicative
 import Data.List (unfoldr)
+import Control.Parallel.Strategies
 
 import Commons
 
@@ -42,13 +41,6 @@ dir '^' = V2 (-1) 0
 dir 'v' = V2 1 0
 dir _ = error "dir"
 
-unfoldr' :: a -> (a -> Maybe a) -> [a]
-unfoldr' s f = s : unfoldr g s
-  where
-    g x = case f x of
-        Just next -> Just (next, next)
-        Nothing   -> Nothing
-
 main :: IO ()
 main = do
     g <- inp $ parseGrid id
@@ -58,4 +50,8 @@ main = do
         stepCount = S.size $ S.map fst steps
     print final
     print stepCount
-    return ()
+
+    let blocks = map (\i -> M.insert i '#' startGrid) $ M.keys $ M.filter (== '.') startGrid
+        traversals = parMap rpar (\m -> runState (stepWithState m (start, vel)) S.empty) blocks
+        loops = filter (\((_,_,stop), b) -> stop == EnterLoop) traversals
+    print $ length loops

@@ -15,8 +15,7 @@ haskell_toolchains = use_extension(
     "haskell_toolchains",
 )
 
-EXTENSIONS = ["-XOverloadedStrings", "-XTupleSections"]
-GHCOPTS = ["-threaded", "-rtsopts", "-O2"] + EXTENSIONS
+GHCOPTS = ["-threaded", "-rtsopts", "-O2"]
 
 haskell_toolchains.bindist(version = "9.6.6", target = "linux_amd64", ghcopts = GHCOPTS)
 
