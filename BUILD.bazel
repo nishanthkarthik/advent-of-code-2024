@@ -34,7 +34,7 @@ haskell_binary(
     data = ["//deps:DayTemplate.hs"]
 )
 
-DAYS = 5
+DAYS = 6
 
 [haskell_binary(
     name = "d{}".format(day + 1),

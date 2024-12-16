@@ -3,6 +3,9 @@ module Commons where
 import qualified Data.Attoparsec.Text as At
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
+import qualified Data.Map.Strict as M
+
+import Data.Char (isSpace)
 import System.Environment (getArgs)
 
 inp :: At.Parser a -> IO a
@@ -24,3 +27,11 @@ instance Num a => Num (V2 a) where
     negate v = negate <$> v
 
 type V2i = V2 Int
+
+parseGrid :: (Char -> a) -> At.Parser (M.Map V2i a)
+parseGrid cellFn = do
+    let cell = At.satisfy (not . isSpace)
+    let row = zip [0..] <$> At.many1 cell
+    rows <- zip [0..] <$> At.sepBy1 row At.endOfLine
+    let grid = [(V2 i j, cellFn c) | (i, cs) <- rows, (j, c) <- cs]
+    return (M.fromList grid)
