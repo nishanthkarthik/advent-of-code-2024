@@ -51,7 +51,7 @@ main = do
     print final
     print stepCount
 
-    let blocks = map (\i -> M.insert i '#' startGrid) $ M.keys $ M.filter (== '.') startGrid
+    let blocks = map (\p -> M.insert p '#' startGrid) $ S.toList $ S.map fst steps
         traversals = parMap rpar (\m -> runState (stepWithState m (start, vel)) S.empty) blocks
         loops = filter (\((_,_,stop), b) -> stop == EnterLoop) traversals
     print $ length loops
