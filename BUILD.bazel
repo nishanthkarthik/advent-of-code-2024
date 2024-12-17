@@ -15,7 +15,7 @@ STACK_DEPS = ["array", "base", "text", "containers",
 
 DEPS = ["@stackage//:{}".format(i) for i in STACK_DEPS]
 
-EXTENSIONS = ["-XOverloadedStrings", "-XTupleSections", "-XMultiWayIf"]
+EXTENSIONS = ["-XOverloadedStrings", "-XTupleSections", "-XMultiWayIf", "-XLambdaCase"]
 
 haskell_library(
     name = "Commons",
@@ -38,7 +38,7 @@ haskell_binary(
     ghcopts = EXTENSIONS,
 )
 
-DAYS = 8
+DAYS = 9
 
 [haskell_binary(
     name = "d{}".format(day + 1),
