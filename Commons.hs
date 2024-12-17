@@ -4,6 +4,7 @@ import qualified Data.Attoparsec.Text as At
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
 import qualified Data.Map.Strict as M
+import qualified Data.Ix as I
 
 import Data.Char (isSpace)
 import System.Environment (getArgs)
@@ -25,6 +26,11 @@ instance Num a => Num (V2 a) where
     signum v = signum <$> v
     fromInteger a = fromInteger <$> V2 a a
     negate v = negate <$> v
+
+instance (I.Ix a) => I.Ix (V2 a) where
+    range (V2 a b, V2 c d) = let r = I.range ((a,b), (c,d)) in map (uncurry V2) r
+    index (V2 a b, V2 c d) (V2 m n) = I.index ((a,b), (c,d)) (m,n)
+    inRange (V2 a b, V2 c d) (V2 m n) = I.inRange ((a,b), (c,d)) (m,n)
 
 type V2i = V2 Int
 
