@@ -8,6 +8,7 @@ import qualified Data.Ix as I
 
 import Data.Char (isSpace)
 import System.Environment (getArgs)
+import Text.Printf (printf)
 
 inp :: At.Parser a -> IO a
 inp parser = do
@@ -17,7 +18,10 @@ inp parser = do
         Left l -> error l
         Right r -> return r
 
-data V2 a = V2 a a deriving (Eq, Ord, Show, Functor)
+data V2 a = V2 a a deriving (Eq, Ord, Functor)
+
+instance (Show a) => Show (V2 a) where
+    show (V2 i j) = printf "(%s %s)" (show i) (show j)
 
 instance Num a => Num (V2 a) where
     (+) (V2 a b) (V2 c d) = V2 (a + c) (b + d)
