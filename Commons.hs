@@ -45,3 +45,10 @@ parseGrid cellFn = do
     rows <- zip [0..] <$> At.sepBy1 row At.endOfLine
     let grid = [(V2 i j, cellFn c) | (i, cs) <- rows, (j, c) <- cs]
     return (M.fromList grid)
+
+showGrid :: (a -> Char) -> M.Map V2i a -> String
+showGrid f m = unlines [[f (m M.! V2 i j) | j <- [mny..mxy]] | i <- [mnx..mxx]]
+    where ((V2 mnx mny, _), (V2 mxx mxy, _)) = (M.findMin m, M.findMax m)
+
+inStr :: Char -> String -> Bool
+inStr = elem
