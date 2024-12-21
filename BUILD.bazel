@@ -19,7 +19,7 @@ EXTENSIONS = ["-XOverloadedStrings", "-XTupleSections", "-XMultiWayIf", "-XLambd
 
 haskell_library(
     name = "Commons",
-    srcs = ["//:Commons.hs"],
+    srcs = [":Commons.hs", ":Algorithms.hs"],
     deps = DEPS,
     ghcopts = EXTENSIONS,
 )
@@ -38,7 +38,7 @@ haskell_binary(
     ghcopts = EXTENSIONS,
 )
 
-DAYS = 15
+DAYS = 16
 
 [haskell_binary(
     name = "d{}".format(day + 1),
