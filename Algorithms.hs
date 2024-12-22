@@ -1,4 +1,4 @@
-module Algorithms (shortestPath, Dist(Dist)) where
+module Algorithms (shortestPath, Dist(Dist, Inf), show) where
 
 import qualified Data.Map.Strict as M
 import qualified Data.Set as S
