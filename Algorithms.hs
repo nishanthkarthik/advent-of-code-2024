@@ -1,4 +1,4 @@
-module Algorithms (shortestPath, Dist(Dist, Inf), show) where
+module Algorithms (shortestPath, Dist(Dist, Inf), show, counter) where
 
 import qualified Data.Map.Strict as M
 import qualified Data.Set as S
@@ -23,3 +23,6 @@ shortestPath getNeighbors start = go initialQueue initialDistMap S.empty
                   dm' = M.union (M.fromList $ map swap assocs) dm
                   qu' = foldr S.insert restQu assocs
                   vis' = S.insert vertU vis
+
+counter :: Ord a => [a] -> M.Map a Int
+counter = M.fromListWith (+) . map (,1)
