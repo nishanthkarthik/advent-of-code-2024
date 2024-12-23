@@ -1,6 +1,7 @@
 import qualified Data.Attoparsec.Text as At
 import qualified Data.Map.Strict as M
 import qualified Data.Set as S
+import qualified Data.IntSet as IS
 import qualified Data.Graph as G
 import Control.Monad
 import Control.Applicative
@@ -20,12 +21,15 @@ main :: IO ()
 main = do
     let name = At.many1 $ At.satisfy isAlpha
     conns <- inp (At.sepBy1 ((,) <$> (name <* At.char '-') <*> name) At.endOfLine)
-    let edges = M.fromListWith S.union $ concat [[(enc i, S.singleton $ enc j), (enc j, S.singleton $ enc i)] | (i,j) <- conns]
+    let edges = M.fromListWith IS.union $ concat [[(enc i, IS.singleton $ enc j), (enc j, IS.singleton $ enc i)] | (i,j) <- conns]
         tstart n = chr (n `div` 256) == 't'
-        triplets = S.fromList [S.fromList [k, v, tr]
-                | (k, vs) <- M.assocs edges, v <- S.toList vs, S.size (S.intersection vs (edges M.! v)) > 0,
-                    tr <- S.toList $ S.intersection vs (edges M.! v)]
-        refine ss = S.fromList [S.insert v s | s <- S.toList ss, (v, vs) <- M.assocs edges, s `S.isSubsetOf` vs]
+        triplets = S.fromList [IS.fromList [k, v, tr]
+                | (k, vs) <- M.assocs edges, v <- IS.toList vs, IS.size (IS.intersection vs (edges M.! v)) > 0,
+                    tr <- IS.toList $ IS.intersection vs (edges M.! v)]
+        refine :: S.Set IS.IntSet -> S.Set IS.IntSet
+        refine ss = S.fromList [IS.insert v s | s <- S.toList ss,
+                        (v, vs) <- M.assocs edges, s `IS.isSubsetOf` vs]
         decode = S.map (S.map dec)
-    print $ S.size $ S.filter (any tstart) triplets
-    mapM_ (print . S.map dec . S.findMin) $ takeWhile (\s -> S.size s > 0) $ iterate refine triplets
+
+    print $ S.size $ S.filter (any tstart . IS.toList) triplets
+    mapM_ (print . map dec . IS.toList . S.findMin) $ takeWhile (\s -> S.size s > 0) $ iterate refine triplets
