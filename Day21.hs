@@ -3,12 +3,11 @@ import qualified Data.Map.Strict as M
 import qualified Data.Set as S
 import Control.Monad
 import Control.Applicative
-import Data.List (intersperse, lookup, group, nub)
+import Data.Containers.ListUtils (nubOrd)
 import Data.Char (isHexDigit, digitToInt)
 import Data.Tuple (swap)
 import Data.Maybe (fromJust)
-import Debug.Trace
-
+import Data.MemoTrie
 import Commons
 
 dirChr :: V2i -> Char
@@ -34,7 +33,7 @@ steps mm fr to = let V2 m n = mm M.! to - mm M.! fr
                      dy = [V2 0 (signum n) | j <- rng n]
                      dx = [V2 (signum m) 0 | i <- rng m]
                      valid xs = all (\i -> i `elem` M.elems mm) $ scanl (+) (mm M.! fr) xs
-                 in nub $ filter valid [dx ++ dy ++ [0], dy ++ dx ++ [0]]
+                 in nubOrd $ map (++ [0]) $ filter valid [dx ++ dy, dy ++ dx]
 
 keySeq :: Ord a => M.Map a V2i -> [a] -> [[V2i]]
 keySeq m xs = map concat $ sequence $ do
@@ -43,13 +42,22 @@ keySeq m xs = map concat $ sequence $ do
 
 solve :: [Int] -> Int -> Int
 solve xs times = let s1 = keySeq numPad (10 : xs)
-                     sn = iterate (concatMap (keySeq dirPad . (0 :))) s1 !! times
-                 in minimum $ map length sn
+                     sn = [memo2 solve2 (map (\(V2 i j) -> (i, j)) s) times | s <- s1]
+                 in minimum sn
+
+-- Thanks for the trick
+-- https://github.com/mkern75/AdventOfCodePython/blob/main/year2024/Day21.py#L54
+solve2 :: [(Int,Int)] -> Int -> Int
+solve2 = memo2 go
+    where go xs 0 = length xs
+          go xs n = sum [minimum [solve2 (map tup p) (n - 1) | p <- steps dirPad i j] | (i, j) <- zip (0 : f xs) (f xs)]
+          tup (V2 i j) = (i, j)
+          f = map (uncurry V2)
 
 main :: IO ()
 main = do
     rows <- inp (At.sepBy1 (At.many1 (digitToInt <$> At.satisfy isHexDigit)) At.endOfLine)
     nums <- inp (At.sepBy1 (At.decimal <* At.char 'A') At.endOfLine)
     print $ sum $ zipWith (\r n -> solve r 2 * n) rows nums
-    print $ zipWith (\r n -> solve r 25 * n) rows nums
+    print $ sum $ zipWith (\r n -> solve r 25 * n) rows nums
     return ()
