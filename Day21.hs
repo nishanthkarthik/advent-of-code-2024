@@ -42,7 +42,7 @@ keySeq m xs = map concat $ sequence $ do
 
 solve :: [Int] -> Int -> Int
 solve xs times = let s1 = keySeq numPad (10 : xs)
-                     sn = [memo2 solve2 (map (\(V2 i j) -> (i, j)) s) times | s <- s1]
+                     sn = [solve2 (map (\(V2 i j) -> (i, j)) s) times | s <- s1]
                  in minimum sn
 
 -- Thanks for the trick
