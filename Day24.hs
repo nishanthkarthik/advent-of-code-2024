@@ -11,6 +11,7 @@ import Data.Bits
 import Data.Char
 import Control.Parallel.Strategies
 import Control.Exception
+import Control.Concurrent
 
 import Commons
 import Data.List
@@ -76,6 +77,9 @@ asBin = go
           go 1 = [True]
           go i = (mod i 2 == 1) : go (div i 2)
 
+parForM_ :: [a] -> (a -> IO ()) -> IO ()
+parForM_ xs f = sequence_ $ map (void . forkIO . f) xs
+
 main :: IO ()
 main = do
     (vals, ops) <- inp parser
@@ -102,7 +106,7 @@ main = do
     let allSwaps = combos $ filter (\i -> not (fstEGate 'y' i) && not (fstEGate 'x' i)) allGates
     print $ length allSwaps
 
-    forM_ allSwaps $ \(a,b) -> do
+    parForM_ allSwaps $ \(a,b) -> do
         let m = IM.union (swaps a b) mops
         let guardedExpectNe a b = catch (evaluate (expectne m a b)) (\(i :: CycleInEvalException) -> return True)
         mm <- forM [0..45] $ \i -> do
