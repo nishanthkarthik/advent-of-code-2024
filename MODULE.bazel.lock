@@ -528,7 +528,7 @@
     "@@rules_haskell~//extensions:haskell_toolchains.bzl%haskell_toolchains": {
       "general": {
         "bzlTransitiveDigest": "51c+0CNPcoLpoFVtYVc6NUgFlz6HgMKcC9tiRmcAJHI=",
-        "usagesDigest": "oVyZCYlIPgpCHdGYQZArxWaXRjxj82ob9xKcyDVPyIU=",
+        "usagesDigest": "4/Viln7/DjimY+jUZuef1NJgTsc8jmJCjo5qOMqYadE=",
         "recordedFileInputs": {
           "@@rules_haskell~//haskell/private/ghc_bindist_generated.json": "3ea29655557e869d53dbde05e541c340b3ece1005320f6bfb16496d0ed3100bf"
         },
@@ -542,8 +542,7 @@
               "version": "9.6.6",
               "ghcopts": [
                 "-threaded",
-                "-rtsopts",
-                "-O2"
+                "-rtsopts"
               ],
               "haddock_flags": [],
               "repl_ghci_args": [],

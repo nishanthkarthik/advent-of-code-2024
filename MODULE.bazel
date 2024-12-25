@@ -15,7 +15,7 @@ haskell_toolchains = use_extension(
     "haskell_toolchains",
 )
 
-GHCOPTS = ["-threaded", "-rtsopts", "-O2"]
+GHCOPTS = ["-threaded", "-rtsopts"]
 
 haskell_toolchains.bindist(version = "9.6.6", target = "linux_amd64", ghcopts = GHCOPTS)
 

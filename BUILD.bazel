@@ -38,7 +38,7 @@ haskell_binary(
     ghcopts = EXTENSIONS,
 )
 
-DAYS = 23
+DAYS = 24
 
 [haskell_binary(
     name = "d{}".format(day + 1),
